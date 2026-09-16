@@ -20,8 +20,8 @@ jobs:
       - name: Setup Terraform Runtime
         uses: hashicorp/setup-terraform@v3
         with:
-          terraform_version: 1.6.0
-          terraform_wrapper: false 
+          terraform_version: 1.16.2
+          terraform_wrapper: false
 
       - name: Authenticate with AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
@@ -30,14 +30,17 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
 
+      - name: Check Terraform Formatting
+        run: terraform fmt -check
+
       - name: Initialize Project
-        run: terraform init
+        run: terraform init -input=false
 
       - name: Structural Validation
         run: terraform validate
 
       - name: Generate Dry Run Plan
-        run: terraform plan
+        run: terraform plan -input=false
 
       - name: Apply Configuration Changes
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
