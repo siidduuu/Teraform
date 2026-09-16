@@ -3,7 +3,8 @@ terraform {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = "~> 5.80" # 🚀 Forces Terraform to pick up a newly signed binary version
+      # This allows any 5.x version starting from 5.80, but explicitly skips the broken 5.100.0
+      version = ">= 5.80, != 5.100.0" 
     }
   }
 }
