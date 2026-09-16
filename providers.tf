@@ -3,7 +3,7 @@ terraform {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = "~> 5.0"
+      version = "~> 5.80" # 🚀 Forces Terraform to pick up a newly signed binary version
     }
   }
 }
@@ -11,3 +11,4 @@ terraform {
 provider "aws" {
   region = "us-east-1"
 }
+
